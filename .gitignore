@@ -1,0 +1,13 @@
+#Mac OS
+.DS_Store
+
+#Do not need Solution
+*.sln
+#	and Project
+*.csproj
+#	any bin or obj
+bin/
+obj/
+
+#Rider
+.idea/
