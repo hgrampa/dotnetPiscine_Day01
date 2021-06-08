@@ -17,12 +17,22 @@ namespace day01_ex01
         public TaskPriority Priority { get; set; }
 
         public TaskState State => _eventsHistory.Last().State;
-
+    
         public Task()
         {
             _eventsHistory = new List<Event> {new CreatedEvent()};
             Priority = TaskPriority.Normal;
             DueDate = null;
+        }
+
+        public Task(string title, string summary, TaskType type, DateTime? dueDate = null,
+            TaskPriority priority = TaskPriority.Normal) : this()
+        {
+            Title = title;
+            Summary = summary;
+            DueDate = dueDate;
+            Type = type;
+            Priority = priority;
         }
         
         public void Complete()
@@ -46,9 +56,11 @@ namespace day01_ex01
         // TODO find optimal way to wright enums
         public override string ToString()
         {
-            var str = Summary.Length > 0 ? 
-                $"{Title}\n[{Type.ToString()}][{State.ToString()}]\nPriority: {Priority.ToString()}, Due till: {DueDate.ToString()}" : 
-                $"{Title}\n[{Type.ToString()}][{State.ToString()}]\nPriority: {Priority.ToString()}, Due till: {DueDate.ToString()}\n{Summary}";
+            var str =
+                $@"{Title}
+[{Type.ToString()}][{State.ToString()}]
+Priority: {Priority.ToString()}{(DueDate != null ? $", Due till: {DueDate.ToString()}" : "")}
+{(Summary.Length > 0 ? $"\n{Summary}" : "")}";
             return str;
         }
 
